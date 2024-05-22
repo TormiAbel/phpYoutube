@@ -12,6 +12,26 @@
         </div>
     </div>
 
+    @php
+    $comment = 'This is a comment';
+    @endphp
+
+    <form action="{{route('comments.store', ['video_id' => $video->id, 'comment' => $comment ])}}" method="POST">
+        @csrf
+        <input type="hidden" name="video_id" id="video_id" value="{{$video->id}}">
+        <div class="form-group
+        @error('body') is-invalid @enderror">
+            <label for="comment">Comment</label>
+            <textarea class="form-control" name="comment" id="comment" rows="3"></textarea>
+            @error('body')
+                <div class="invalid-feedback">
+                    {{$message}}
+                </div>
+            @enderror
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+
     @foreach($video->comments as $comment)
         <div class="card mt-2">
             <div class="card-body">

@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\Video;
 use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
+use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class CommentController extends Controller
 {
@@ -36,7 +39,20 @@ class CommentController extends Controller
      */
     public function store(StoreCommentRequest $request)
     {
-        //
+            echo $request->video_id;
+        echo $request->body;
+        echo $request->video;
+        echo $request->comment;
+        //store comment in database here
+        $comment = new Comment();
+        $comment->body = $request->comment;
+        $comment->user_id = Auth::user()->id;
+        $comment->video_id = $request->video_id;
+        $comment->save();
+
+
+        return redirect()->route('public.video', $request->video_id);
+
     }
 
     /**

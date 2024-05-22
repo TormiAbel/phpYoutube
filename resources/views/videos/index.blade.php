@@ -27,7 +27,7 @@
                 <td>{{$video->updated_at}}</td>
                 <td>
                     <div class="btn-group">
-                        <a href="{{route('videos.show', ['video' => $video])}}" class="btn btn-primary">View</a>
+                        <a href="{{route('videos.show', ['video' => $video])}}" class="btn btn-primary">view</a>
                         <a href="{{route('videos.edit', ['video' => $video])}}" class="btn btn-warning">Edit</a>
                         <a href="{{route('videos.destroy', ['video' => $video])}}" class="btn btn-danger">Delete</a>
                     </div>
@@ -35,6 +35,14 @@
             </tr>
         @endforeach
         </tbody>
+        <tfoot>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Duration</th>
+            <th>Created At</th>
+            <th>Updated At</th>
+            <th>Actions</th>
+        </tfoot>
     </table>
     {{$videos->links()}}
 @endsection

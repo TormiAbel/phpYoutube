@@ -50,7 +50,7 @@ class VideoController extends Controller
         $video = new Video($request->validated());
         $video->user()->associate(Auth::user());
         $video->save();
-        $request->session()->flash('status', 'Video added successfully!');
+        $request->session()->flash('status', 'Video added successfuly!');
         return redirect()->route('videos.index');
     }
 
@@ -62,7 +62,11 @@ class VideoController extends Controller
      */
     public function show(Video $video)
     {
-        return view('videos\view', compact('video'));
+        
+        if($video->user->id !== Auth::user()->id){
+            throw new NotFoundHttpException();
+        }
+        return view('videos.show', compact('video'));
     }
 
     /**
@@ -85,7 +89,7 @@ class VideoController extends Controller
      *
      * @param  \App\Http\Requests\UpdateVideoRequest  $request
      * @param  \App\Models\Video  $video
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Http\Response
      */
     public function update(UpdateVideoRequest $request, Video $video)
     {
